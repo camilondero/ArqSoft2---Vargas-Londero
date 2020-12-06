@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import ar.edu.ucc.arqSoft.baseService.dto.TareaRequestDto;
 import ar.edu.ucc.arqSoft.baseService.dto.TareaResponseDto;
 import ar.edu.ucc.arqSoft.baseService.service.TareaService;
+import ar.edu.ucc.arqSoft.common.dto.GenericExceptionDto;
 import ar.edu.ucc.arqSoft.common.exception.BadRequestException;
 import ar.edu.ucc.arqSoft.common.exception.EntityNotFoundException;
 
@@ -50,16 +52,17 @@ public class TareaController {
 	}
     }
     
-    @RequestMapping(value="/changeStateFromTask/{id}", method=RequestMethod.PUT, produces= MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody TareaResponseDto cambiarEstado(@PathVariable("id") Long id, @RequestBody Long request) throws EntityNotFoundException 
-    {
-        return tareaService.cambioEstado(id, request);
+    @RequestMapping(value = "/cambiarEstado/{id}", method=RequestMethod.PUT, produces= MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<Object> cambiarEstado(@PathVariable("id") Long id, @RequestBody Long request){
+       
+    	try {
+    	TareaResponseDto dto = tareaService.cambioEstado(id, request);
+    	return new ResponseEntity<Object>(dto, HttpStatus.OK);
+    	} catch (EntityNotFoundException e) {
+			GenericExceptionDto exDto = new GenericExceptionDto("404", "El estado o tarea no se encontraron");
+			return new ResponseEntity<Object>(exDto, HttpStatus.NOT_FOUND);
     }
-    
-    @RequestMapping(method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public @ResponseBody TareaResponseDto insertTarea(@RequestBody TareaRequestDto request)
-    {
-        return tareaService.insertTarea(request);
+    	
     }
+      
 }

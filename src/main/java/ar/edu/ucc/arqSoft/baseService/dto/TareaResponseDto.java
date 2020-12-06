@@ -1,5 +1,8 @@
 package ar.edu.ucc.arqSoft.baseService.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import ar.edu.ucc.arqSoft.common.dto.DtoEntity;
 
 public class TareaResponseDto implements DtoEntity{
@@ -7,9 +10,18 @@ public class TareaResponseDto implements DtoEntity{
 	private String nombre;
 	private String descripcion;
 	private Long id;
+	@JsonIgnore
 	private Long idProyecto;
+	@JsonIgnore
 	private Long idEstado;
+	@JsonIgnore
 	private Long idUsuario;
+	@JsonProperty("nombre_proyecto")
+	private String nombreProyecto;
+	@JsonProperty("estado_tarea")
+	private String estadoTarea;
+	@JsonProperty("usuario_tarea")
+	private String usuarioTarea;
 	
 	public String getNombre() {
 		return nombre;
@@ -47,6 +59,25 @@ public class TareaResponseDto implements DtoEntity{
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
+	public String getNombreProyecto() {
+		return nombreProyecto;
+	}
+	public void setNombreProyecto(String nombreProyecto) {
+		this.nombreProyecto = nombreProyecto;
+	}
+	public String getEstadoTarea() {
+		return estadoTarea;
+	}
+	public void setEstadoTarea(String estadoTarea) {
+		this.estadoTarea = estadoTarea;
+	}
+	public String getUsuarioTarea() {
+		return usuarioTarea;
+	}
+	public void setUsuarioTarea(String usuarioTarea) {
+		this.usuarioTarea = usuarioTarea;
+	}
+    
 	
 	
 	

@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import ar.edu.ucc.arqSoft.baseService.dto.ProyectoRequestDto;
 import ar.edu.ucc.arqSoft.common.model.GenericObject;
 
 
@@ -65,6 +66,11 @@ public Set<Tarea> getTareas() {
 
 public void setTareas(Set<Tarea> tareas) {
 	Tareas = tareas;
+}
+
+public ProyectoRequestDto getUsuario() {
+	// TODO Auto-generated method stub
+	return null;
 }
 
 	

@@ -11,8 +11,12 @@ import org.springframework.stereotype.Service;
 import ar.edu.ucc.arqSoft.baseService.dao.ComentarioDao;
 import ar.edu.ucc.arqSoft.baseService.dto.ComentarioRequestDto;
 import ar.edu.ucc.arqSoft.baseService.dto.ComentarioResponseDto;
+import ar.edu.ucc.arqSoft.baseService.dto.TareaResponseDto;
 import ar.edu.ucc.arqSoft.baseService.model.Comentario;
+import ar.edu.ucc.arqSoft.baseService.model.Tarea;
 import ar.edu.ucc.arqSoft.common.dto.ModelDtoConverter;
+import ar.edu.ucc.arqSoft.common.exception.BadRequestException;
+import ar.edu.ucc.arqSoft.common.exception.EntityNotFoundException;
 
 @Service
 @Transactional
@@ -44,5 +48,21 @@ public List<ComentarioResponseDto> getAllComentarios() {
 		
 		return response;
 	}
+
+public ComentarioResponseDto getComentarioById(Long id) throws EntityNotFoundException, BadRequestException{
+	
+	 if (id <= 0) {
+			
+			throw new BadRequestException();
+		}
+	    
+	    Comentario comentario = comentarioDao.load(id);
+		//TareaResponseDto response = new TareaResponseDto();		
+		ComentarioResponseDto response = (ComentarioResponseDto) new ModelDtoConverter().convertToDto(comentario, new ComentarioResponseDto());	
+		response.setTareaComentario(comentario.getTarea().getNombre());
+		response.setUsuarioComentario((comentario.getUsuario().getNombre()) + " " +(comentario.getUsuario().getApellido()));
+		return response;
+	}
+
 
 }

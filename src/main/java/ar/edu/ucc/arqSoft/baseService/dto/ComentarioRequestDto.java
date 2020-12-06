@@ -5,20 +5,23 @@ import ar.edu.ucc.arqSoft.common.dto.DtoEntity;
 public class ComentarioRequestDto implements DtoEntity{
 	
 	
-	private String description;
-	private Long idUsurario;
+	private String detalle;
+	private Long idUsuario;
 	private Long idTarea;
-	public String getDescription() {
-		return description;
+
+	
+
+	public String getDetalle() {
+		return detalle;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDetalle(String detalle) {
+		this.detalle = detalle;
 	}
-	public Long getIdUsurario() {
-		return idUsurario;
+	public Long getIdUsuario() {
+		return idUsuario;
 	}
-	public void setIdUsurario(Long idUsurario) {
-		this.idUsurario = idUsurario;
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 	public Long getIdTarea() {
 		return idTarea;

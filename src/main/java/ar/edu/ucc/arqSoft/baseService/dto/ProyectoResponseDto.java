@@ -1,5 +1,6 @@
 package ar.edu.ucc.arqSoft.baseService.dto;
 
+
 import ar.edu.ucc.arqSoft.common.dto.DtoEntity;
 
 public class ProyectoResponseDto implements DtoEntity{
@@ -7,6 +8,7 @@ public class ProyectoResponseDto implements DtoEntity{
 	private String nombre;
 	private String descripcion;
 	private Long id;
+	
 	
 	public String getNombre() {
 		return nombre;
@@ -26,6 +28,8 @@ public class ProyectoResponseDto implements DtoEntity{
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	
 	
 	
 

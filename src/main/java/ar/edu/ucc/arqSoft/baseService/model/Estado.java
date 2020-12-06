@@ -41,6 +41,11 @@ public class Estado extends GenericObject {
 		this.tarea = tarea;
 	}
 
+	@Override
+	public String toString() {
+		return "Estado [nombre=" + nombre + "]";
+	}
+
 	
 
 }

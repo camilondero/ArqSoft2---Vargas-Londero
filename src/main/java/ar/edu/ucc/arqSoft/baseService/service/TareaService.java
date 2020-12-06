@@ -12,6 +12,7 @@ import ar.edu.ucc.arqSoft.baseService.dao.EstadoDao;
 import ar.edu.ucc.arqSoft.baseService.dao.TareaDao;
 import ar.edu.ucc.arqSoft.baseService.dto.TareaRequestDto;
 import ar.edu.ucc.arqSoft.baseService.dto.TareaResponseDto;
+import ar.edu.ucc.arqSoft.baseService.model.Comentario;
 import ar.edu.ucc.arqSoft.baseService.model.Tarea;
 import ar.edu.ucc.arqSoft.common.dto.ModelDtoConverter;
 import ar.edu.ucc.arqSoft.common.exception.BadRequestException;
@@ -43,12 +44,15 @@ public class TareaService {
 		response.setIdEstado(tarea.getEstado().getId());
 		
 		
+		
 		return response;
 	}
  
  
  public List<TareaResponseDto> getAllTareas() {
 		List<Tarea> tareas = tareaDao.getAll();
+		
+		
 		
 		List<TareaResponseDto> response = new ArrayList<TareaResponseDto>();
 		 
@@ -76,27 +80,33 @@ public class TareaService {
 		}
 	    
 	    Tarea tarea = tareaDao.load(id);
-				
+		//TareaResponseDto response = new TareaResponseDto();		
 		TareaResponseDto response = (TareaResponseDto) new ModelDtoConverter().convertToDto(tarea, new TareaResponseDto());	
+		response.setEstadoTarea(tarea.getEstado().getNombre());
+		response.setUsuarioTarea((tarea.getUsuario().getNombre()) + " " +(tarea.getUsuario().getApellido()));
 		return response;
 	}
  
  public TareaResponseDto cambioEstado(Long id, Long request) throws EntityNotFoundException {
 	 
+	   
 	    Tarea tarea = tareaDao.load(id);
 
 		tarea.setEstado(estadoDao.load(request));
 		tareaDao.update(tarea);
 
-		Tarea task_after_update = tareaDao.load(id);
-		TareaResponseDto response = new TareaResponseDto();
 
-		response.setId(task_after_update.getId());
-		response.setNombre(task_after_update.getNombre());
-		response.setDescripcion(task_after_update.getDescripcion());
-		response.setIdUsuario(task_after_update.getUsuario().getId());
-		response.setIdProyecto(task_after_update.getProyecto().getId());
-		response.setIdEstado(task_after_update.getEstado().getId());
+		Tarea updateTarea = tareaDao.load(id);
+		TareaResponseDto response = new TareaResponseDto();
+	
+
+		response.setId(updateTarea .getId());
+		response.setNombre(updateTarea .getNombre());
+		response.setDescripcion(updateTarea .getDescripcion());
+		response.setIdUsuario(updateTarea.getUsuario().getId());
+		response.setIdProyecto(updateTarea .getProyecto().getId());
+		response.setIdEstado(updateTarea.getEstado().getId());
+		
 		return response;
 	}
  
