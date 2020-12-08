@@ -38,7 +38,7 @@ public abstract class GenericDaoImp<E, ID extends Serializable> implements Gener
 		em.persist(entity);
 	}
 
-	public void update(E entity) {
+	public void update(E entity)  {
 		em.persist(entity);
 	}
 

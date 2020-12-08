@@ -12,11 +12,11 @@ import ar.edu.ucc.arqSoft.baseService.dao.EstadoDao;
 import ar.edu.ucc.arqSoft.baseService.dao.TareaDao;
 import ar.edu.ucc.arqSoft.baseService.dto.TareaRequestDto;
 import ar.edu.ucc.arqSoft.baseService.dto.TareaResponseDto;
-import ar.edu.ucc.arqSoft.baseService.model.Comentario;
 import ar.edu.ucc.arqSoft.baseService.model.Tarea;
 import ar.edu.ucc.arqSoft.common.dto.ModelDtoConverter;
 import ar.edu.ucc.arqSoft.common.exception.BadRequestException;
 import ar.edu.ucc.arqSoft.common.exception.EntityNotFoundException;
+import ar.edu.ucc.arqSoft.common.exception.InvalidRequestException;
 
 @Service
 @Transactional
@@ -87,12 +87,28 @@ public class TareaService {
 		return response;
 	}
  
- public TareaResponseDto cambioEstado(Long id, Long request) throws EntityNotFoundException {
+ public TareaResponseDto cambioEstado(Long id, Long request) throws InvalidRequestException, EntityNotFoundException {
 	 
 	   
 	    Tarea tarea = tareaDao.load(id);
 
+	    if(tarea.getEstado().getId() == 1 )
+	    {
+	    	throw new InvalidRequestException();
+	    }
+	    
+	    else if(tarea.getEstado().getId() == 2 && request == 3 )
+	    {
+	    	throw new InvalidRequestException();
+	    }
+
+	    else if(tarea.getEstado().getId() == 4 && request == 3 && request == 1)
+	    {
+	    	throw new InvalidRequestException();
+	    }
+	    
 		tarea.setEstado(estadoDao.load(request));
+		
 		tareaDao.update(tarea);
 
 
