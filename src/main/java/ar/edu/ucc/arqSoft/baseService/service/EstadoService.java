@@ -12,6 +12,8 @@ import ar.edu.ucc.arqSoft.baseService.dto.EstadoRequestDto;
 import ar.edu.ucc.arqSoft.baseService.dto.EstadoResponseDto;
 import ar.edu.ucc.arqSoft.baseService.model.Estado;
 import ar.edu.ucc.arqSoft.common.dto.ModelDtoConverter;
+import ar.edu.ucc.arqSoft.common.exception.BadRequestException;
+import ar.edu.ucc.arqSoft.common.exception.EntityNotFoundException;
 
 @Service
 @Transactional
@@ -42,4 +44,19 @@ public List<EstadoResponseDto> getAllEstado() {
 		
 		return response;
 	}
+
+
+
+public EstadoResponseDto getEstadoById(Long id) throws EntityNotFoundException, BadRequestException{
+	
+	 if (id <= 0) {
+			
+			throw new BadRequestException();
+		}
+	    
+	    Estado estado = estadoDao.load(id);	
+		EstadoResponseDto response = (EstadoResponseDto) new ModelDtoConverter().convertToDto(estado, new EstadoResponseDto());	
+		return response;
+	}
+
 }
